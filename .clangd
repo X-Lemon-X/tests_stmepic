@@ -1,0 +1,20 @@
+CompileFlags:                     # Tweak the parse settings
+  Add: 
+    - "-std=gnu++17"
+    - "-lstdc++"
+    - "-lsupc++"
+    - "-lc"
+    - "-lm"
+
+Diagnostics:
+  ClangTidy:
+    Add: modernize*
+    FastCheckFilter: Strict
+  UnusedIncludes: Strict
+InlayHints:
+  BlockEnd: No
+  Designators: Yes
+  Enabled: Yes
+  ParameterNames: Yes
+  DeducedTypes: Yes
+  TypeNameLimit: 60

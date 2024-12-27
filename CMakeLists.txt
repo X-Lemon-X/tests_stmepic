@@ -139,6 +139,11 @@ add_custom_command(
  )
 
 
+add_custom_command(
+  TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
+  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/compile_commands.json ${CMAKE_SOURCE_DIR}/compile_commands.json
+)
+
 if(CCACHE_PROGRAM)
   add_custom_command(
     TARGET ${CMAKE_PROJECT_NAME} POST_BUILD
