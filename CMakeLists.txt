@@ -87,7 +87,8 @@ add_subdirectory(cmake/stm32cubemx)
 ############################################################################################################
 # Add sources subdirectory and include directories link libriries  [3/4]
 # congigure the project here
-add_subdirectory(src/StmEpic)
+set(STMEPIC_DIR ${CMAKE_SOURCE_DIR}/../../StmEpic)
+add_subdirectory(${STMEPIC_DIR} ${CMAKE_BINARY_DIR}/StmEpic)
 
 # Add sources to executable
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
@@ -101,7 +102,6 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
   # Add user defined include paths
   "src"
-  "src/ariadna_constants/can_messages/output"
 )
 
 
