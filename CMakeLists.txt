@@ -87,7 +87,7 @@ add_subdirectory(cmake/stm32cubemx)
 ############################################################################################################
 # Add sources subdirectory and include directories link libriries  [3/4]
 # congigure the project here
-set(STMEPIC_DIR ${CMAKE_SOURCE_DIR}/../../StmEpic)
+set(STMEPIC_DIR ${CMAKE_SOURCE_DIR}/..)
 add_subdirectory(${STMEPIC_DIR} ${CMAKE_BINARY_DIR}/StmEpic)
 
 # Add sources to executable
