@@ -96,6 +96,6 @@ void main_prog() {
   fram = new memory::FramI2C(i2c1,0x60,0x0,0xffff);
   fram->device_enable();
   encoderAbsoluteMagnetic.init(i2c1, encoders::translate_reg_to_angle_AS5600, &fss, &fss);
-  encoderAbsoluteMagnetic.device_enable();
+  encoderAbsoluteMagnetic.device_start();
   encoderAbsoluteMagnetic.device_task_start();
 }
