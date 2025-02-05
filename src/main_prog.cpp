@@ -52,7 +52,7 @@ motor::SteperMotorStepDir motorStepDir(htim10,TIM_CHANNEL_1, direction_pin, enab
 motor::MotorClosedLoop motorClosedLoop(motorStepDir,&encoderAbsoluteMagnetic,&encoderAbsoluteMagnetic,nullptr);
 TimeScheduler timeScheduler(Ticker::get_instance());
 filters::FilterSampleSkip fss;
-memory::FRAM *fram= new memory::FramI2C(hi2c1,0x60,0x0,0xffff);
+memory::FRAM *fram;
 
 std::shared_ptr<stmepic::I2C> i2c1;
 std::shared_ptr<stmepic::CAN> can1;
@@ -92,7 +92,8 @@ void main_prog() {
   can1->add_callback(0x123,can_callback);
   can1->hardware_start();
   i2c1->hardware_start();
-
+  
+  fram = new memory::FramI2C(i2c,0x60,0x0,0xffff)
   fram->device_enable();
   encoderAbsoluteMagnetic.init(i2c1, encoders::translate_reg_to_angle_AS5600, &fss, &fss);
   encoderAbsoluteMagnetic.device_enable();
