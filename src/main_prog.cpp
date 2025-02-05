@@ -93,7 +93,7 @@ void main_prog() {
   can1->hardware_start();
   i2c1->hardware_start();
   
-  fram = new memory::FramI2C(i2c,0x60,0x0,0xffff)
+  fram = new memory::FramI2C(i2c1,0x60,0x0,0xffff)
   fram->device_enable();
   encoderAbsoluteMagnetic.init(i2c1, encoders::translate_reg_to_angle_AS5600, &fss, &fss);
   encoderAbsoluteMagnetic.device_enable();
