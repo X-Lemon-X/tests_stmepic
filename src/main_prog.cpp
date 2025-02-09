@@ -44,12 +44,11 @@ GpioPin pin_i2c1_sda(*GPIOB, GPIO_PIN_7);
 GpioPin pin_i2c1_scl(*GPIOB, GPIO_PIN_6);
 
 
-
-movement::MovementControler movementControler;
-encoders::EncoderAbsoluteMagnetic encoderAbsoluteMagnetic;
-movement::BasicLinearPosControler basicLinearPosControler;
 motor::SteperMotorStepDir motorStepDir(htim10,TIM_CHANNEL_1, direction_pin, enable_pin);
-motor::MotorClosedLoop motorClosedLoop(motorStepDir,&encoderAbsoluteMagnetic,&encoderAbsoluteMagnetic,nullptr);
+movement::MovementControler movementControler;
+std::shared_ptr<encoders::EncoderAbsoluteMagnetic> encoderAbsoluteMagnetic;
+movement::BasicLinearPosControler basicLinearPosControler;
+std::shared_ptr<stmepic::motor::MotorClosedLoop> motor;
 TimeScheduler timeScheduler(Ticker::get_instance());
 filters::FilterSampleSkip fss;
 memory::FRAM *fram;
@@ -95,7 +94,12 @@ void main_prog() {
   
   fram = new memory::FramI2C(i2c1,0x60,0x0,0xffff);
   fram->device_start();
-  encoderAbsoluteMagnetic.init(i2c1, encoders::translate_reg_to_angle_AS5600, &fss, &fss);
+
+
+  motor = std::make_shared<stmepic::motor::MotorClosedLoop>(motorStepDir, encoderAbsoluteMagnetic, encoderAbsoluteMagnetic, nullptr);
+  movementControler.init(*motor, stmepic::movement::MovementControlMode::VELOCITY,basicLinearPosControler);
+  encoderAbsoluteMagnetic = encoders::EncoderAbsoluteMagneticMT6701::Make(i2c1, stmepic::encoders::encoder_MT6701_addresses::MT6701_I2C_ADDRESS_1,nullptr, nullptr).valueOrDie();
+
   encoderAbsoluteMagnetic.device_start();
   encoderAbsoluteMagnetic.device_task_start();
 }
