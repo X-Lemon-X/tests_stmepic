@@ -93,8 +93,8 @@ void main_prog() {
   
   fram = new memory::FramI2C(i2c1,0x60,0x0,0xffff);
   fram->device_start();
-
-  stmepic::motor::MotorClosedLoop motor(motorStepDir, encoderAbsoluteMagnetic, encoderAbsoluteMagnetic, nullptr);
+  auto motor = std::make_shared<stmepic::motor::MotorClosedLoop>(motorStepDir, encoderAbsoluteMagnetic, encoderAbsoluteMagnetic, nullptr);
+  //stmepic::motor::MotorClosedLoop motor(motorStepDir, encoderAbsoluteMagnetic, encoderAbsoluteMagnetic, nullptr);
 
   movementControler.init(motor, stmepic::movement::MovementControlMode::VELOCITY,basicLinearPosControler);
   encoderAbsoluteMagnetic = encoders::EncoderAbsoluteMagneticMT6701::Make(i2c1, stmepic::encoders::encoder_MT6701_addresses::MT6701_I2C_ADDRESS_1,nullptr, nullptr).valueOrDie();
