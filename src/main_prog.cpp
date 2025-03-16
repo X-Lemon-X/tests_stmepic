@@ -18,6 +18,7 @@
 #include "logger.hpp"
 #include "can.hpp"
 #include "i2c.hpp"
+#include "can2.0.hpp"
 
 extern CAN_HandleTypeDef hcan1;
 
@@ -48,7 +49,6 @@ motor::SteperMotorStepDir motorStepDir(htim10,TIM_CHANNEL_1, direction_pin, enab
 movement::MovementControler movementControler;
 std::shared_ptr<encoders::EncoderAbsoluteMagnetic> encoderAbsoluteMagnetic;
 std::shared_ptr<movement::BasicLinearPosControler> basicLinearPosControler;
-TimeScheduler timeScheduler(Ticker::get_instance());
 filters::FilterSampleSkip fss;
 memory::FRAM *fram;
 
@@ -56,7 +56,7 @@ std::shared_ptr<stmepic::I2C> i2c1;
 std::shared_ptr<stmepic::CAN> can1;
 
 
-void can_callback(stmepic::CAN&can, CanDataFrame& frame, void *arg) {
+void can_callback(stmepic::CanBase &can, CanDataFrame& frame, void *arg) {
   __NOP();
 }
 
