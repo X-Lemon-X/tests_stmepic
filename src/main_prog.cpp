@@ -50,7 +50,7 @@ movement::MovementControler movementControler;
 std::shared_ptr<encoders::EncoderAbsoluteMagnetic> encoderAbsoluteMagnetic;
 std::shared_ptr<movement::BasicLinearPosControler> basicLinearPosControler;
 filters::FilterSampleSkip fss;
-memory::FRAM *fram;
+std::shared_ptr<memory::FRAM> fram;
 
 std::shared_ptr<stmepic::I2C> i2c1;
 std::shared_ptr<stmepic::CAN> can1;
@@ -91,7 +91,7 @@ void main_prog() {
   can1->hardware_start();
   i2c1->hardware_start();
   
-  fram = new memory::FramI2C(i2c1,0x60,0x0,0xffff);
+  STMEPIC_ASIGN_TO_OR_HRESET(gram,memory::FramI2C:Make(i2c1,0x60,0x0,0xffff));
   fram->device_start();
   auto motor = std::make_shared<stmepic::motor::MotorClosedLoop>(motorStepDir, encoderAbsoluteMagnetic, encoderAbsoluteMagnetic, nullptr);
   //stmepic::motor::MotorClosedLoop motor(motorStepDir, encoderAbsoluteMagnetic, encoderAbsoluteMagnetic, nullptr);
