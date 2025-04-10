@@ -90,8 +90,7 @@ void main_prog() {
   can1->add_callback(0x123,can_callback);
   can1->hardware_start();
   i2c1->hardware_start();
-  
-  STMEPIC_ASIGN_TO_OR_HRESET(gram,memory::FramI2C:Make(i2c1,0x60,0x0,0xffff));
+  STMEPIC_ASSIGN_TO_OR_HRESET(gram,memory::FramI2C:Make(i2c1,0x60,0x0,0xffff));
   fram->device_start();
   auto motor = std::make_shared<stmepic::motor::MotorClosedLoop>(motorStepDir, encoderAbsoluteMagnetic, encoderAbsoluteMagnetic, nullptr);
   //stmepic::motor::MotorClosedLoop motor(motorStepDir, encoderAbsoluteMagnetic, encoderAbsoluteMagnetic, nullptr);
