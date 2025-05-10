@@ -19,6 +19,8 @@
 #include "can.hpp"
 #include "i2c.hpp"
 #include "can2.0.hpp"
+#include "MT6701.hpp"
+#include "AS5600.hpp"
 
 extern CAN_HandleTypeDef hcan1;
 
