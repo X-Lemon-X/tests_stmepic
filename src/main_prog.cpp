@@ -103,5 +103,4 @@ void main_prog() {
   encoderAbsoluteMagnetic = encoders::EncoderAbsoluteMagneticMT6701::Make(i2c1, stmepic::encoders::encoder_MT6701_addresses::MT6701_I2C_ADDRESS_1,nullptr, nullptr).valueOrDie();
 
   encoderAbsoluteMagnetic->device_start();
-  encoderAbsoluteMagnetic->device_task_start();
 }
