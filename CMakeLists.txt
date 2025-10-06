@@ -26,7 +26,7 @@ set(CMAKE_PROJECT_NAME embeded_stmepic_base_project)
 
 ############################################################################################################
 # C++ Configuration  [1/4]
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
 # aditional compiler flags
 set(CMAKE_ASM_FLAGS "${CMAKE_C_FLAGS}")
